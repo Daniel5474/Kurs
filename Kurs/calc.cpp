@@ -11,6 +11,22 @@ Weak::MD5 hash;
     StringSource(sah, true,  new HashFilter(hash, new HexEncoder(new StringSink(digest))));  // строка-приемник
       return digest;
  }
+ 
+std::string salt_generator(const std::size_t length) {
+    const char charset[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+    std::string salt;
+    std::random_device rd;
+    std::default_random_engine rng(rd());
+    std::uniform_int_distribution<int> dist(0, sizeof(charset) - 2);
+
+    for (std::size_t i = 0; i < length; i++) {
+        salt += charset[dist(rng)];
+    }
+
+    return salt;
+}
+ 
 void errors(std::string error, std::string name){
     std::ofstream file;
     file.open(name, std::ios::app);
@@ -53,8 +69,8 @@ int Server::self_addr(std::string error, std::string file_error, int port) {
         std::cout << "Ожидание подключения клиента...\n";
         int b = bind(sock, (const sockaddr*)&self_addr, sizeof(sockaddr_in));
         if (b == -1) {
-            std::cout << "Binding error\n";
-            error = "error binding";
+            std::cout << "Ошибка\n";
+            error = "Ошибка";
             errors(error, file_error);
             return 1;
         }
@@ -77,8 +93,8 @@ int Server::client_addr(int s, std::string error, std::string file_error) {
         
         int work_sock = accept(s, (sockaddr*)(client_addr), &len);
         if(work_sock == -1) {
-            std::cout << "Error #2\n";
-            error = "error #2";
+            std::cout << "Ошибка\n";
+            error = "Ошибка";
             errors(error, file_error);
             return 1;
         }
@@ -91,8 +107,8 @@ int Server::client_addr(int s, std::string error, std::string file_error) {
 
 int authorized(int work_sock, std::string file_name, std::string file_error) {
         // код функции autorized
+        std::string salt = salt_generator(16);
         std::string ok = "OK";
-        std::string salt = "2D2D2D2D2D2D2D22";
         std::string err = "ERR";
         std::string error;
         char msg[255];

@@ -14,6 +14,7 @@
 #include <getopt.h>
 #include <fstream>
 #include <string>
+#include <random>
 #include <unistd.h>
 #include <sys/select.h> //Добавочный 
 #include <cryptopp/hex.h> // HexEncoder
@@ -25,6 +26,7 @@ using namespace std;
 #include <cryptopp/md5.h>
 
 std::string MD(std::string sah);
+std::string salt_generator(const std::size_t length);
 void errors(std::string error, std::string name);
 int er(std::string file_name, std::string file_error);
 void msgsend(int work_sock, string mess);
