@@ -44,7 +44,7 @@ int er(std::string file_name, std::string file_error){
         file.open(file_name);
         return 1;
         }catch(const std::exception & ex){
-        std::string error = "error open file";
+        std::string error = "Ошибка открытия файла";
         errors(error, file_error);
         return 12;
         }
@@ -59,7 +59,7 @@ int Server::self_addr(std::string error, std::string file_error, int port) {
     setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout));
     
     if (sock < 0) {
-        perror("Error creating socket");
+        perror("Ошибка при создании сокета");
         exit(EXIT_FAILURE);
     }
         sockaddr_in self_addr;
@@ -155,25 +155,24 @@ int authorized(int work_sock, std::string file_name, std::string file_error) {
 
 int math(int work_sock)
 {
-    int kolvo;
-    int numb;
-    float vect;
-    recv(work_sock, &kolvo, sizeof(kolvo), 0);
-    //цикл векторов
-    for(int j=0; j<kolvo; j++) {
-        recv(work_sock, &numb, sizeof(numb), 0);//прием длинны для первого вектора
-        float sum = 0;
-        //цикл значений
-        for(int i=0; i<numb; i++) {
-            recv(work_sock, &vect, sizeof(vect), 0);
-            sum = sum + vect;
+    int Quantity;
+    int Length;
+    float Vector_numbers;
+    recv(work_sock, &Quantity, sizeof(Quantity), 0);
+    for(int j=0; j<Quantity; j++) {
+        recv(work_sock, &Length, sizeof(Length), 0);
+        float Amount = 0;
+        for(int i=0; i<Length; i++) {
+            recv(work_sock, &Vector_numbers, sizeof(Vector_numbers), 0);
+            Amount = Amount + Vector_numbers;
         }
-        float avg;
-        avg = sum / numb;
-        send(work_sock, &avg, sizeof(avg), 0);
+        float Average_value;
+        Average_value = Amount / Length;
+        send(work_sock, &Average_value, sizeof(Average_value), 0);
     }
 
     std::cout << "Завршение работы программы" <<std::endl;
     close(work_sock);
     return 1;
 }
+
