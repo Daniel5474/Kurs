@@ -1,18 +1,19 @@
 #include "calc.h"
-void msgsend(int work_sock, string mess){
+
+void Authorized::msgsend(int work_sock, const std::string& mess){
     char *buffer = new char[4096];
     std::strcpy(buffer, mess.c_str());
     send(work_sock, buffer, mess.length(), 0);
 }
 
-std::string MD(std::string sah){
+std::string Authorized::MD(const std::string& sah){
 Weak::MD5 hash;
     std::string digest;
     StringSource(sah, true,  new HashFilter(hash, new HexEncoder(new StringSink(digest))));  // строка-приемник
       return digest;
  }
  
-std::string salt_generator(const std::size_t length) {
+std::string Authorized::salt_generator(const std::size_t length) {
     const char charset[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
     std::string salt;
@@ -26,8 +27,13 @@ std::string salt_generator(const std::size_t length) {
 
     return salt;
 }
+
+Error::Error()
+{
+
+}
  
-void errors(std::string error, std::string name){
+void Error::errors(std::string error, std::string name){
     std::ofstream file;
     file.open(name, std::ios::app);
     if(file.is_open()){
@@ -37,7 +43,7 @@ void errors(std::string error, std::string name){
         std::cout << "error: " << error << std::endl;
     }
 }
-int er(std::string file_name, std::string file_error){
+int Error::er(std::string file_name, std::string file_error){
         std::fstream file;
         file.exceptions(std::ifstream::badbit | std::ifstream::failbit);
         try{
@@ -50,52 +56,63 @@ int er(std::string file_name, std::string file_error){
         }
         }
 
-int Server::self_addr(std::string error, std::string file_error, int port) {
-    // код функции self_addr
+void alarm_handler(int signal) {
+    std::cout << "Время ожидания истекло\n";
+    exit(EXIT_FAILURE);
+}
+
+int Server::self_addr(std::string& error, std::string& file_error, int port) {
     int sock = socket(AF_INET, SOCK_STREAM, 0);
-    int on = 1;
-    setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &on, sizeof on);
-    struct timeval timeout {10, 0}; // Установка таймаута в 10 секунд
-    setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout));
-    
     if (sock < 0) {
         perror("Ошибка при создании сокета");
         exit(EXIT_FAILURE);
     }
-        sockaddr_in self_addr;
-        self_addr.sin_family = AF_INET;
-        self_addr.sin_port = htons(port);
-        self_addr.sin_addr.s_addr = inet_addr("127.0.0.1");
-        std::cout << "Ожидание подключения клиента...\n";
-        int b = bind(sock, (const sockaddr*)&self_addr, sizeof(sockaddr_in));
-        if (b == -1) {
-            std::cout << "Ошибка\n";
-            error = "Ошибка";
-            errors(error, file_error);
-            return 1;
-        }
-        
-        if (listen(sock, SOMAXCONN) == -1) {
-            perror("listen");
-            exit(EXIT_FAILURE);
-        }
-        
-        return sock;
+    
+    int on = 1;
+    int rc = setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on));
+    if (rc == -1) {
+        throw std::system_error(errno, std::generic_category(), "Ошибка установки сокета");
     }
+    
+    signal(SIGALRM, alarm_handler);
+    alarm(10);
+    
+    struct timeval timeout {10, 0};
+    rc = setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout));
+    if (rc == -1) {
+        throw std::system_error(errno, std::generic_category(), "Ошибка установки сокета");
+    }
+    
+    sockaddr_in self_addr;
+    self_addr.sin_family = AF_INET;
+    self_addr.sin_port = htons(port);
+    self_addr.sin_addr.s_addr = inet_addr("127.0.0.1");
+    
+    std::cout << "Ожидание подключения клиента...\n";
+    
+    int b = bind(sock, reinterpret_cast<sockaddr*>(&self_addr), sizeof(self_addr));
+    if (b == -1) {
+        std::cout << "Ошибка привязки\n";
+        error = "Ошибка";
+        e_error.errors(error, file_error);
+        return 1;
+    }
+    
+    listen(sock, SOMAXCONN);
+    
+    return sock;
+}
 
-int Server::client_addr(int s, std::string error, std::string file_error) {
+int Server::client_addr(int s, std::string& error, std::string& file_error) {
         // код функции client_addr
         sockaddr_in * client_addr = new sockaddr_in;
         socklen_t len = sizeof (sockaddr_in);
-        
-        struct timeval timeout {10, 0}; // Установка таймаута в 10 секунд
-    setsockopt(s, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout));
         
         int work_sock = accept(s, (sockaddr*)(client_addr), &len);
         if(work_sock == -1) {
             std::cout << "Ошибка\n";
             error = "Ошибка";
-            errors(error, file_error);
+            e_error.errors(error, file_error);
             return 1;
         }
         else {
@@ -105,7 +122,7 @@ int Server::client_addr(int s, std::string error, std::string file_error) {
         }
     }
 
-int authorized(int work_sock, std::string file_name, std::string file_error) {
+int Authorized::authorized(int work_sock, string file_name, string file_error) {
         // код функции autorized
         std::string salt = salt_generator(16);
         std::string ok = "OK";
@@ -126,7 +143,7 @@ int authorized(int work_sock, std::string file_name, std::string file_error) {
         if(message == login){
             msgsend(work_sock,  err);
             error = "Ошибка логина";
-            errors(error, file_error);
+            e_error.errors(error, file_error);
             close(work_sock);
             return 1;
         } else {
@@ -142,7 +159,7 @@ int authorized(int work_sock, std::string file_name, std::string file_error) {
                 std::cout << msg << std::endl;
                 msgsend(work_sock,  err);
                 error = "Ошибка пароля";
-                errors(error, file_error);
+                e_error.errors(error, file_error);
                 close(work_sock);
                 return 1;
             } else {
@@ -153,7 +170,7 @@ int authorized(int work_sock, std::string file_name, std::string file_error) {
     }
 
 
-int math(int work_sock)
+int Calculator::calc(int work_sock)
 {
     int Quantity;
     int Length;
@@ -167,7 +184,15 @@ int math(int work_sock)
             Amount = Amount + Vector_numbers;
         }
         float Average_value;
-        Average_value = Amount / Length;
+        if (Amount > 2147483647) {
+            Average_value = 2147483647;
+            }
+        else if (Amount < -2147483648) {
+            Average_value = -2147483648;
+            }
+        else {
+        	Average_value = Amount / Length;
+        	}
         send(work_sock, &Average_value, sizeof(Average_value), 0);
     }
 
@@ -175,4 +200,3 @@ int math(int work_sock)
     close(work_sock);
     return 1;
 }
-
