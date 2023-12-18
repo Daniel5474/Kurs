@@ -75,9 +75,9 @@ int Server::self_addr(std::string& error, std::string& file_error, int port) {
     }
     
     signal(SIGALRM, alarm_handler);
-    alarm(10);
+    alarm(240);
     
-    struct timeval timeout {10, 0};
+    struct timeval timeout {240, 0};
     rc = setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout));
     if (rc == -1) {
         throw std::system_error(errno, std::generic_category(), "Ошибка установки сокета");
@@ -122,53 +122,54 @@ int Server::client_addr(int s, std::string& error, std::string& file_error) {
         }
     }
 
-int Authorized::authorized(int work_sock, string file_name, string file_error) {
-        // код функции autorized
-        std::string salt = salt_generator(16);
-        std::string ok = "OK";
-        std::string err = "ERR";
-        std::string error;
-        char msg[255];
-        
-        //Авторизация
-        recv(work_sock, &msg, sizeof(msg), 0);
-        std::string message = msg;
-            std::string login, hashq;
-            std::fstream file;
-            file.open(file_name);
-            getline (file, login, ':');
-            getline (file, hashq);
+int Authorized::authorized(int work_sock, std::string file_name, std::string file_error)
+{
+    std::string ok = "OK";
+    std::string err = "ERR";
+    std::string error;
+    char msg[255];
 
-        //СВЕРКА ЛОГИНОВ
-        if(message == login){
+    //АВТОРИЗАЦИЯ
+    recv(work_sock, &msg, sizeof(msg), 0);
+    std::string message = msg;
+    std::string login, hashq;
+    std::fstream file;
+    file.open(file_name);
+    getline (file, login, ':');
+    getline (file, hashq);
+
+    //СВЕРКА ЛОГИНА
+    if(message != login){
+        msgsend(work_sock,  err);
+        error = "Ошибка логина";
+        e_error.errors(error, file_error);
+        close(work_sock);
+        return 1;
+    }else{
+
+        //РАБОТА С СОЛЬЮ
+        std::string salt = salt_generator(16); // Генерируем соль длиной 16 байтов
+        msgsend(work_sock,  salt);
+        recv(work_sock, msg, sizeof(msg), 0);
+        std::string sah = salt + hashq;
+        std::string digest;
+        digest = MD(sah);
+
+        //СВЕРКА ПАРОЛЯ
+        if(digest != msg){
+            std::cout << digest << std::endl;
+            std::cout << msg << std::endl;
             msgsend(work_sock,  err);
-            error = "Ошибка логина";
+            error = "Ошибка пароля";
             e_error.errors(error, file_error);
             close(work_sock);
             return 1;
-        } else {
-            //соль отправленная клиенту
-            msgsend(work_sock,  salt);
-            recv(work_sock, msg, sizeof(msg), 0);
-            std::string sah = salt + hashq;
-            std::string digest;
-            digest = MD(sah);
-            //СВЕРКА ПАРОЛЕЙ
-            if(digest == msg){
-                std::cout << digest << std::endl;
-                std::cout << msg << std::endl;
-                msgsend(work_sock,  err);
-                error = "Ошибка пароля";
-                e_error.errors(error, file_error);
-                close(work_sock);
-                return 1;
-            } else {
-                msgsend(work_sock,  ok);
-            }
+        }else{
+            msgsend(work_sock,  ok);
         }
-        return 1;
     }
-
+    return 1;
+}
 
 int Calculator::calc(int work_sock)
 {

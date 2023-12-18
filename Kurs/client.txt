@@ -1,1 +1,1 @@
-user:P@ssW0rd
+:P@ssW0rd

@@ -17,12 +17,12 @@ int main(int argc, char *argv[]) {
     }
     int option;
     int option_index = 0;
-    int port = 33333;
+    int port = 33333; 
     std::string file_name = "/etc/vcalc.conf"; 
     std::string file_error = "/var/log/vcalc.log";
     std::string error;
 
-    while ((option = getopt_long(argc, argv, "hf:p:i:e:", long_options, &option_index)) != -1) {
+    while ((option = getopt_long(argc, argv, "hf:p:e:", long_options, &option_index)) != -1) {
         switch (option) {
             case 'h':
                 std::cout << "Векторный калькулятор выполняющий действие нахождения среднего арифметического" << std::endl;
@@ -44,6 +44,12 @@ int main(int argc, char *argv[]) {
                 file_error = std::string(optarg);
             }
                 break;
+            case '?':
+                std::cout << "Неверно введен параметр. Используйте -h для помощи." << std::endl;
+                return 1;
+            default:
+                std::cout << "Неизвестный параметр. Используйте -h для помощи." << std::endl;
+                return 1;
         }
     }
 
