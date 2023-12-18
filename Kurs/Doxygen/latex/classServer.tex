@@ -1,0 +1,113 @@
+\hypertarget{classServer}{}\doxysection{Класс Server}
+\label{classServer}\index{Server@{Server}}
+
+
+Класс Сервер  
+
+
+
+
+{\ttfamily \#include $<$calc.\+h$>$}
+
+
+
+Граф связей класса Server\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=142pt]{classServer__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Открытые члены}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classServer_af2d7ac300139aaab894149fdb155e3ec}{Server}} (\mbox{\hyperlink{classError}{Error}} err)
+\item 
+int \mbox{\hyperlink{classServer_aeb0aec2fefebfdb6583e3df93d9672cb}{self\+\_\+addr}} (std\+::string \&error, std\+::string \&file\+\_\+error, int port)
+\begin{DoxyCompactList}\small\item\em Функция установки сетевого соединения \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classServer_a16b593109a6f0b85797652b836e69f02}{client\+\_\+addr}} (int s, std\+::string \&error, std\+::string \&file\+\_\+error)
+\begin{DoxyCompactList}\small\item\em Функция установки сетевого соединения \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Закрытые данные}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classServer_a0761dd50aca6cfdd1ad2d165d08dbcf8}\label{classServer_a0761dd50aca6cfdd1ad2d165d08dbcf8}} 
+\mbox{\hyperlink{classError}{Error}} \mbox{\hyperlink{classServer_a0761dd50aca6cfdd1ad2d165d08dbcf8}{e\+\_\+error}}
+\begin{DoxyCompactList}\small\item\em Приватный член класса \mbox{\hyperlink{classError}{Error}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+Класс Сервер 
+
+Данный класс создан для для установки адреса сервера и клиента 
+
+\doxysubsection{Конструктор(ы)}
+\mbox{\Hypertarget{classServer_af2d7ac300139aaab894149fdb155e3ec}\label{classServer_af2d7ac300139aaab894149fdb155e3ec}} 
+\index{Server@{Server}!Server@{Server}}
+\index{Server@{Server}!Server@{Server}}
+\doxysubsubsection{\texorpdfstring{Server()}{Server()}}
+{\footnotesize\ttfamily Server\+::\+Server (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classError}{Error}}}]{err }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+$<$ Конструктор класса \mbox{\hyperlink{classServer}{Server}}
+
+$<$ Присваивание объекта err приватному члену e\+\_\+error
+
+\doxysubsection{Методы}
+\mbox{\Hypertarget{classServer_a16b593109a6f0b85797652b836e69f02}\label{classServer_a16b593109a6f0b85797652b836e69f02}} 
+\index{Server@{Server}!client\_addr@{client\_addr}}
+\index{client\_addr@{client\_addr}!Server@{Server}}
+\doxysubsubsection{\texorpdfstring{client\_addr()}{client\_addr()}}
+{\footnotesize\ttfamily int Server\+::client\+\_\+addr (\begin{DoxyParamCaption}\item[{int}]{s,  }\item[{std\+::string \&}]{error,  }\item[{std\+::string \&}]{file\+\_\+error }\end{DoxyParamCaption})}
+
+
+
+Функция установки сетевого соединения 
+
+Функция используется для получения адреса клиента, с которым установлено сетевое соединение по заданному сокету 
+\begin{DoxyParams}[1]{Аргументы}
+\mbox{\texttt{ in}}  & {\em s} & Передаваемый сокетом для работы с сетью \\
+\hline
+\mbox{\texttt{ in}}  & {\em error} & Имя файла базы данных \\
+\hline
+\mbox{\texttt{ in}}  & {\em file\+\_\+error} & Имя файла для записи ошибок \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+Информацию о выполнении операции 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Исключения}
+{\em error,если} & имеются ошибки при подключении Метод для установки адреса клиента \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{classServer_aeb0aec2fefebfdb6583e3df93d9672cb}\label{classServer_aeb0aec2fefebfdb6583e3df93d9672cb}} 
+\index{Server@{Server}!self\_addr@{self\_addr}}
+\index{self\_addr@{self\_addr}!Server@{Server}}
+\doxysubsubsection{\texorpdfstring{self\_addr()}{self\_addr()}}
+{\footnotesize\ttfamily int Server\+::self\+\_\+addr (\begin{DoxyParamCaption}\item[{std\+::string \&}]{error,  }\item[{std\+::string \&}]{file\+\_\+error,  }\item[{int}]{port }\end{DoxyParamCaption})}
+
+
+
+Функция установки сетевого соединения 
+
+Функция используется для определения собственного сетевого адреса и порта 
+\begin{DoxyParams}[1]{Аргументы}
+\mbox{\texttt{ in}}  & {\em error} & Строка с сообщением об ошибки \\
+\hline
+\mbox{\texttt{ in}}  & {\em file\+\_\+error} & Имя файла для записи ошибок \\
+\hline
+\mbox{\texttt{ in}}  & {\em port} & Порт \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+Информацию о выполнении операции 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Исключения}
+{\em error,если} & имеются ошибки при подключении Метод для установки адреса сервера \\
+\hline
+\end{DoxyExceptions}
+
+
+Объявления и описания членов класса находятся в файле\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{calc_8h}{calc.\+h}}\end{DoxyCompactItemize}

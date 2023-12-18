@@ -1,0 +1,99 @@
+\hypertarget{classAuthorized}{}\doxysection{Класс Authorized}
+\label{classAuthorized}\index{Authorized@{Authorized}}
+
+
+Класс авторизации  
+
+
+
+
+{\ttfamily \#include $<$calc.\+h$>$}
+
+
+
+Граф связей класса Authorized\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=153pt]{classAuthorized__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Открытые члены}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classAuthorized_a2e5d4442b185559f02642988d7c7112f}{Authorized}} (\mbox{\hyperlink{classError}{Error}} err)
+\item 
+int \mbox{\hyperlink{classAuthorized_a11168cc28a608116b540ab0fd3e4ea4d}{authorized}} (int work\+\_\+sock, string file\+\_\+name, string file\+\_\+error)
+\begin{DoxyCompactList}\small\item\em Функция авторизации \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Закрытые члены}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classAuthorized_a3f29c5f770b91d76121e7bec0848f33a}\label{classAuthorized_a3f29c5f770b91d76121e7bec0848f33a}} 
+std\+::string \mbox{\hyperlink{classAuthorized_a3f29c5f770b91d76121e7bec0848f33a}{salt\+\_\+generator}} (const std\+::size\+\_\+t length)
+\begin{DoxyCompactList}\small\item\em Метод для генерации соли \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAuthorized_a69ea2105ac0d8331c0c94fd618fb6438}\label{classAuthorized_a69ea2105ac0d8331c0c94fd618fb6438}} 
+void \mbox{\hyperlink{classAuthorized_a69ea2105ac0d8331c0c94fd618fb6438}{msgsend}} (int work\+\_\+sock, const std\+::string \&mess)
+\begin{DoxyCompactList}\small\item\em Метод для отправки сообщения \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAuthorized_a14c2fccc96a7f177cb6c614431c8bc58}\label{classAuthorized_a14c2fccc96a7f177cb6c614431c8bc58}} 
+std\+::string \mbox{\hyperlink{classAuthorized_a14c2fccc96a7f177cb6c614431c8bc58}{MD}} (const std\+::string \&sah)
+\begin{DoxyCompactList}\small\item\em Метод для вычисления хэша \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Закрытые данные}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classAuthorized_a68d3b9443e59267617e5a598cf443ccd}\label{classAuthorized_a68d3b9443e59267617e5a598cf443ccd}} 
+\mbox{\hyperlink{classError}{Error}} \mbox{\hyperlink{classAuthorized_a68d3b9443e59267617e5a598cf443ccd}{e\+\_\+error}}
+\begin{DoxyCompactList}\small\item\em Приватный член класса \mbox{\hyperlink{classError}{Error}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+Класс авторизации 
+
+Данный класс создан для авторизации клиента на сервере и проверки логина и пароля в базе данных при подключении пользователя \begin{DoxyWarning}{Предупреждения}
+Пользователь должен быть в базе данных 
+\end{DoxyWarning}
+
+
+\doxysubsection{Конструктор(ы)}
+\mbox{\Hypertarget{classAuthorized_a2e5d4442b185559f02642988d7c7112f}\label{classAuthorized_a2e5d4442b185559f02642988d7c7112f}} 
+\index{Authorized@{Authorized}!Authorized@{Authorized}}
+\index{Authorized@{Authorized}!Authorized@{Authorized}}
+\doxysubsubsection{\texorpdfstring{Authorized()}{Authorized()}}
+{\footnotesize\ttfamily Authorized\+::\+Authorized (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classError}{Error}}}]{err }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+$<$ Конструктор класса \mbox{\hyperlink{classAuthorized}{Authorized}}
+
+$<$ Присваивание объекта err приватному члену e\+\_\+error
+
+\doxysubsection{Методы}
+\mbox{\Hypertarget{classAuthorized_a11168cc28a608116b540ab0fd3e4ea4d}\label{classAuthorized_a11168cc28a608116b540ab0fd3e4ea4d}} 
+\index{Authorized@{Authorized}!authorized@{authorized}}
+\index{authorized@{authorized}!Authorized@{Authorized}}
+\doxysubsubsection{\texorpdfstring{authorized()}{authorized()}}
+{\footnotesize\ttfamily int Authorized\+::authorized (\begin{DoxyParamCaption}\item[{int}]{work\+\_\+sock,  }\item[{string}]{file\+\_\+name,  }\item[{string}]{file\+\_\+error }\end{DoxyParamCaption})}
+
+
+
+Функция авторизации 
+
+Функция выполняет авторизации клиента на сервере 
+\begin{DoxyParams}[1]{Аргументы}
+\mbox{\texttt{ in}}  & {\em work\+\_\+sock} & Передаваемый сокетом для работы с сетью \\
+\hline
+\mbox{\texttt{ in}}  & {\em file\+\_\+name} & Имя файла базы данных \\
+\hline
+\mbox{\texttt{ in}}  & {\em file\+\_\+error} & Имя файла для записи ошибок \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+Информацию о статусе авторизации пользователя 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Исключения}
+{\em error,если} & введены некорректные данные логина или пароля Метод для авторизации пользователя \\
+\hline
+\end{DoxyExceptions}
+
+
+Объявления и описания членов класса находятся в файле\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{calc_8h}{calc.\+h}}\end{DoxyCompactItemize}

@@ -1,0 +1,33 @@
+\begin{theindex}
+
+  \item {Authorized}, \hyperpage{5}
+    \subitem {Authorized}, \hyperpage{6}
+    \subitem {authorized}, \hyperpage{6}
+  \item {authorized}
+    \subitem {Authorized}, \hyperpage{6}
+
+  \indexspace
+
+  \item {calc}
+    \subitem {Calculator}, \hyperpage{8}
+  \item {calc.h}, \hyperpage{13}
+  \item {Calculator}, \hyperpage{7}
+    \subitem {calc}, \hyperpage{8}
+    \subitem {Calculator}, \hyperpage{8}
+  \item {client\_addr}
+    \subitem {Server}, \hyperpage{10}
+
+  \indexspace
+
+  \item {Error}, \hyperpage{9}
+
+  \indexspace
+
+  \item {self\_addr}
+    \subitem {Server}, \hyperpage{11}
+  \item {Server}, \hyperpage{9}
+    \subitem {client\_addr}, \hyperpage{10}
+    \subitem {self\_addr}, \hyperpage{11}
+    \subitem {Server}, \hyperpage{10}
+
+\end{theindex}
