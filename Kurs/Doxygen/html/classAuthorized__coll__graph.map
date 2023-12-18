@@ -1,0 +1,4 @@
+<map id="Authorized" name="Authorized">
+<area shape="rect" id="node1" title="Класс авторизации" alt="" coords="5,95,97,121"/>
+<area shape="rect" id="node2" href="$classError.html" title="Класс ошибок" alt="" coords="25,5,78,32"/>
+</map>

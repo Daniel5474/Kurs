@@ -1,0 +1,4 @@
+<map id="Server" name="Server">
+<area shape="rect" id="node1" title="Класс Сервер" alt="" coords="5,95,69,121"/>
+<area shape="rect" id="node2" href="$classError.html" title="Класс ошибок" alt="" coords="11,5,64,32"/>
+</map>

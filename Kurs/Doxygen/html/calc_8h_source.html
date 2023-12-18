@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Course paper: Исходный файл calc.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Course paper
+   &#160;<span id="projectnumber">1.0</span>
+   </div>
+   <div id="projectbrief">Software implementation of a network server</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Поиск','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Поиск');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">calc.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="calc_8h.html">См. документацию.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160; </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;netinet/in.h&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;iostream&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;cassert&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;arpa/inet.h&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;cstdlib&gt;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;unistd.h&gt;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;ctime&gt;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;fstream&gt;</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &lt;sstream&gt;</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &lt;random&gt;</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &lt;cryptopp/cryptlib.h&gt;</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &lt;iostream&gt;</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#include &lt;getopt.h&gt;</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#include &lt;iostream&gt;</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#include &lt;unistd.h&gt;</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#include &lt;getopt.h&gt;</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#include &lt;csignal&gt;</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#include &lt;cstdlib&gt;</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &lt;cryptopp/hex.h&gt;</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#define CRYPTOPP_ENABLE_NAMESPACE_WEAK 1</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keyword">using namespace </span>CryptoPP;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="keyword">using namespace </span>std;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#include &lt;cryptopp/md5.h&gt;</span> </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="classError.html">   42</a></span>&#160;<span class="keyword">class </span><a class="code" href="classError.html">Error</a></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;{</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="classError.html#aca339d00ad8481fb4c184f0ece42698b">   45</a></span>&#160;    <a class="code" href="classError.html#aca339d00ad8481fb4c184f0ece42698b">Error</a>(); </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="classError.html#a1129e50b258f1d1b4513f0b7736d9b4e">   47</a></span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classError.html#a1129e50b258f1d1b4513f0b7736d9b4e">errors</a>(std::string error, std::string name); </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="classError.html#a6dd10cbba36e50ee58c16e67e22b1a55">   49</a></span>&#160;    <span class="keyword">static</span> <span class="keywordtype">int</span> <a class="code" href="classError.html#a6dd10cbba36e50ee58c16e67e22b1a55">er</a>(std::string file_name, std::string file_error); </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;};</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="classServer.html">   57</a></span>&#160;<span class="keyword">class </span><a class="code" href="classServer.html">Server</a></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;{</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="classServer.html#a0761dd50aca6cfdd1ad2d165d08dbcf8">   60</a></span>&#160;    <a class="code" href="classError.html">Error</a> <a class="code" href="classServer.html#a0761dd50aca6cfdd1ad2d165d08dbcf8">e_error</a>; </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="classServer.html#af2d7ac300139aaab894149fdb155e3ec">   63</a></span>&#160;    <a class="code" href="classServer.html#af2d7ac300139aaab894149fdb155e3ec">Server</a>(<a class="code" href="classError.html">Error</a> err) : e_error(err) { </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        e_error = err; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    }</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    </div>
+<div class="line"><a name="l00076"></a><span class="lineno"><a class="line" href="classServer.html#aeb0aec2fefebfdb6583e3df93d9672cb">   76</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classServer.html#aeb0aec2fefebfdb6583e3df93d9672cb">self_addr</a>(std::string&amp; error, std::string&amp; file_error, <span class="keywordtype">int</span> port); </div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    </div>
+<div class="line"><a name="l00087"></a><span class="lineno"><a class="line" href="classServer.html#a16b593109a6f0b85797652b836e69f02">   87</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classServer.html#a16b593109a6f0b85797652b836e69f02">client_addr</a>(<span class="keywordtype">int</span> s, std::string&amp; error, std::string&amp; file_error); </div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;};</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
+<div class="line"><a name="l00097"></a><span class="lineno"><a class="line" href="classAuthorized.html">   97</a></span>&#160;<span class="keyword">class </span><a class="code" href="classAuthorized.html">Authorized</a></div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;{</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00100"></a><span class="lineno"><a class="line" href="classAuthorized.html#a68d3b9443e59267617e5a598cf443ccd">  100</a></span>&#160;    <a class="code" href="classError.html">Error</a> <a class="code" href="classAuthorized.html#a68d3b9443e59267617e5a598cf443ccd">e_error</a>; </div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
+<div class="line"><a name="l00102"></a><span class="lineno"><a class="line" href="classAuthorized.html#a3f29c5f770b91d76121e7bec0848f33a">  102</a></span>&#160;    std::string <a class="code" href="classAuthorized.html#a3f29c5f770b91d76121e7bec0848f33a">salt_generator</a>(<span class="keyword">const</span> std::size_t length); </div>
+<div class="line"><a name="l00103"></a><span class="lineno"><a class="line" href="classAuthorized.html#a69ea2105ac0d8331c0c94fd618fb6438">  103</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classAuthorized.html#a69ea2105ac0d8331c0c94fd618fb6438">msgsend</a>(<span class="keywordtype">int</span> work_sock, <span class="keyword">const</span> std::string&amp; mess); </div>
+<div class="line"><a name="l00104"></a><span class="lineno"><a class="line" href="classAuthorized.html#a14c2fccc96a7f177cb6c614431c8bc58">  104</a></span>&#160;    std::string <a class="code" href="classAuthorized.html#a14c2fccc96a7f177cb6c614431c8bc58">MD</a>(<span class="keyword">const</span> std::string&amp; sah); </div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00107"></a><span class="lineno"><a class="line" href="classAuthorized.html#a2e5d4442b185559f02642988d7c7112f">  107</a></span>&#160;    <a class="code" href="classAuthorized.html#a2e5d4442b185559f02642988d7c7112f">Authorized</a>(<a class="code" href="classError.html">Error</a> err) : e_error(err) { </div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        e_error = err; </div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    }</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    </div>
+<div class="line"><a name="l00119"></a><span class="lineno"><a class="line" href="classAuthorized.html#a11168cc28a608116b540ab0fd3e4ea4d">  119</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classAuthorized.html#a11168cc28a608116b540ab0fd3e4ea4d">authorized</a>(<span class="keywordtype">int</span> work_sock, <span class="keywordtype">string</span> file_name, <span class="keywordtype">string</span> file_error); </div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;};</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
+<div class="line"><a name="l00127"></a><span class="lineno"><a class="line" href="classCalculator.html">  127</a></span>&#160;<span class="keyword">class </span><a class="code" href="classCalculator.html">Calculator</a></div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;{</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00130"></a><span class="lineno"><a class="line" href="classCalculator.html#a9df4334cb9b557ae42f5e098fc1ee6e1">  130</a></span>&#160;    <a class="code" href="classError.html">Error</a> <a class="code" href="classCalculator.html#a9df4334cb9b557ae42f5e098fc1ee6e1">e_error</a>; </div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160; </div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00133"></a><span class="lineno"><a class="line" href="classCalculator.html#a30b3e117b1f8881ada496b794d370f6f">  133</a></span>&#160;    <a class="code" href="classCalculator.html#a30b3e117b1f8881ada496b794d370f6f">Calculator</a>(<a class="code" href="classError.html">Error</a> err) : e_error(err) { </div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;        e_error = err; </div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    }</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    </div>
+<div class="line"><a name="l00145"></a><span class="lineno"><a class="line" href="classCalculator.html#a5552f45c214f550b648102b4e4858bb6">  145</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classCalculator.html#a5552f45c214f550b648102b4e4858bb6">calc</a>(<span class="keywordtype">int</span> work_sock); </div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;};</div>
+<div class="ttc" id="aclassAuthorized_html"><div class="ttname"><a href="classAuthorized.html">Authorized</a></div><div class="ttdoc">Класс авторизации</div><div class="ttdef"><b>Definition:</b> calc.h:98</div></div>
+<div class="ttc" id="aclassAuthorized_html_a11168cc28a608116b540ab0fd3e4ea4d"><div class="ttname"><a href="classAuthorized.html#a11168cc28a608116b540ab0fd3e4ea4d">Authorized::authorized</a></div><div class="ttdeci">int authorized(int work_sock, string file_name, string file_error)</div><div class="ttdoc">Функция авторизации</div></div>
+<div class="ttc" id="aclassAuthorized_html_a14c2fccc96a7f177cb6c614431c8bc58"><div class="ttname"><a href="classAuthorized.html#a14c2fccc96a7f177cb6c614431c8bc58">Authorized::MD</a></div><div class="ttdeci">std::string MD(const std::string &amp;sah)</div><div class="ttdoc">Метод для вычисления хэша</div></div>
+<div class="ttc" id="aclassAuthorized_html_a2e5d4442b185559f02642988d7c7112f"><div class="ttname"><a href="classAuthorized.html#a2e5d4442b185559f02642988d7c7112f">Authorized::Authorized</a></div><div class="ttdeci">Authorized(Error err)</div><div class="ttdef"><b>Definition:</b> calc.h:107</div></div>
+<div class="ttc" id="aclassAuthorized_html_a3f29c5f770b91d76121e7bec0848f33a"><div class="ttname"><a href="classAuthorized.html#a3f29c5f770b91d76121e7bec0848f33a">Authorized::salt_generator</a></div><div class="ttdeci">std::string salt_generator(const std::size_t length)</div><div class="ttdoc">Метод для генерации соли</div></div>
+<div class="ttc" id="aclassAuthorized_html_a68d3b9443e59267617e5a598cf443ccd"><div class="ttname"><a href="classAuthorized.html#a68d3b9443e59267617e5a598cf443ccd">Authorized::e_error</a></div><div class="ttdeci">Error e_error</div><div class="ttdoc">Приватный член класса Error.</div><div class="ttdef"><b>Definition:</b> calc.h:100</div></div>
+<div class="ttc" id="aclassAuthorized_html_a69ea2105ac0d8331c0c94fd618fb6438"><div class="ttname"><a href="classAuthorized.html#a69ea2105ac0d8331c0c94fd618fb6438">Authorized::msgsend</a></div><div class="ttdeci">void msgsend(int work_sock, const std::string &amp;mess)</div><div class="ttdoc">Метод для отправки сообщения</div></div>
+<div class="ttc" id="aclassCalculator_html"><div class="ttname"><a href="classCalculator.html">Calculator</a></div><div class="ttdoc">Класс калькулятор</div><div class="ttdef"><b>Definition:</b> calc.h:128</div></div>
+<div class="ttc" id="aclassCalculator_html_a30b3e117b1f8881ada496b794d370f6f"><div class="ttname"><a href="classCalculator.html#a30b3e117b1f8881ada496b794d370f6f">Calculator::Calculator</a></div><div class="ttdeci">Calculator(Error err)</div><div class="ttdef"><b>Definition:</b> calc.h:133</div></div>
+<div class="ttc" id="aclassCalculator_html_a5552f45c214f550b648102b4e4858bb6"><div class="ttname"><a href="classCalculator.html#a5552f45c214f550b648102b4e4858bb6">Calculator::calc</a></div><div class="ttdeci">int calc(int work_sock)</div><div class="ttdoc">Функция вычисления</div></div>
+<div class="ttc" id="aclassCalculator_html_a9df4334cb9b557ae42f5e098fc1ee6e1"><div class="ttname"><a href="classCalculator.html#a9df4334cb9b557ae42f5e098fc1ee6e1">Calculator::e_error</a></div><div class="ttdeci">Error e_error</div><div class="ttdoc">Приватный член класса Error.</div><div class="ttdef"><b>Definition:</b> calc.h:130</div></div>
+<div class="ttc" id="aclassError_html"><div class="ttname"><a href="classError.html">Error</a></div><div class="ttdoc">Класс ошибок</div><div class="ttdef"><b>Definition:</b> calc.h:43</div></div>
+<div class="ttc" id="aclassError_html_a1129e50b258f1d1b4513f0b7736d9b4e"><div class="ttname"><a href="classError.html#a1129e50b258f1d1b4513f0b7736d9b4e">Error::errors</a></div><div class="ttdeci">static void errors(std::string error, std::string name)</div><div class="ttdoc">Статический метод для вывода ошибки</div></div>
+<div class="ttc" id="aclassError_html_a6dd10cbba36e50ee58c16e67e22b1a55"><div class="ttname"><a href="classError.html#a6dd10cbba36e50ee58c16e67e22b1a55">Error::er</a></div><div class="ttdeci">static int er(std::string file_name, std::string file_error)</div><div class="ttdoc">Статический метод для обработки ошибок</div></div>
+<div class="ttc" id="aclassError_html_aca339d00ad8481fb4c184f0ece42698b"><div class="ttname"><a href="classError.html#aca339d00ad8481fb4c184f0ece42698b">Error::Error</a></div><div class="ttdeci">Error()</div><div class="ttdoc">Конструктор по умолчанию</div></div>
+<div class="ttc" id="aclassServer_html"><div class="ttname"><a href="classServer.html">Server</a></div><div class="ttdoc">Класс Сервер</div><div class="ttdef"><b>Definition:</b> calc.h:58</div></div>
+<div class="ttc" id="aclassServer_html_a0761dd50aca6cfdd1ad2d165d08dbcf8"><div class="ttname"><a href="classServer.html#a0761dd50aca6cfdd1ad2d165d08dbcf8">Server::e_error</a></div><div class="ttdeci">Error e_error</div><div class="ttdoc">Приватный член класса Error.</div><div class="ttdef"><b>Definition:</b> calc.h:60</div></div>
+<div class="ttc" id="aclassServer_html_a16b593109a6f0b85797652b836e69f02"><div class="ttname"><a href="classServer.html#a16b593109a6f0b85797652b836e69f02">Server::client_addr</a></div><div class="ttdeci">int client_addr(int s, std::string &amp;error, std::string &amp;file_error)</div><div class="ttdoc">Функция установки сетевого соединения</div></div>
+<div class="ttc" id="aclassServer_html_aeb0aec2fefebfdb6583e3df93d9672cb"><div class="ttname"><a href="classServer.html#aeb0aec2fefebfdb6583e3df93d9672cb">Server::self_addr</a></div><div class="ttdeci">int self_addr(std::string &amp;error, std::string &amp;file_error, int port)</div><div class="ttdoc">Функция установки сетевого соединения</div></div>
+<div class="ttc" id="aclassServer_html_af2d7ac300139aaab894149fdb155e3ec"><div class="ttname"><a href="classServer.html#af2d7ac300139aaab894149fdb155e3ec">Server::Server</a></div><div class="ttdeci">Server(Error err)</div><div class="ttdef"><b>Definition:</b> calc.h:63</div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Создано системой&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
+</small></address>
+</body>
+</html>
